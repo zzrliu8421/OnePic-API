@@ -1374,9 +1374,6 @@ function build() {
               <button class="btn" id="testBtn" onclick="fetchRandomImage()">
                 <span>获取随机图片</span>
               </button>
-              <button class="btn btn-secondary" onclick="fetchRandomImages()">
-                <span>获取多张图片</span>
-              </button>
             </div>
           </div>
 
@@ -1617,37 +1614,6 @@ function build() {
           info.style.display = 'inline-flex';
           info.innerHTML = '<span>!</span><span>加载失败，请重试</span>';
         })
-        .finally(() => {
-          btn.innerHTML = originalText;
-          btn.disabled = false;
-        });
-    }
-
-    function fetchRandomImages() {
-      const btn = event.target.closest('.btn');
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '<span>...</span><span>加载中</span>';
-      btn.disabled = true;
-
-      fetch('/api?count=5&_t=' + Date.now())
-        .then(r => r.json())
-        .then(data => {
-          if (data.success && data.images.length > 0) {
-            const img = document.getElementById('previewImage');
-            const info = document.getElementById('previewInfo');
-            const formatSpan = document.getElementById('previewFormat');
-            const typeSpan = document.getElementById('previewType');
-            const sizeSpan = document.getElementById('previewSize');
-
-            img.src = data.images[0].url + '?_t=' + Date.now();
-            img.style.display = 'block';
-            info.style.display = 'inline-flex';
-            formatSpan.textContent = data.format.toUpperCase();
-            typeSpan.textContent = data.type === 'pc' ? 'PC 端' : '移动端';
-            sizeSpan.textContent = data.count + ' 张图片';
-          }
-        })
-        .catch(err => console.error('Error:', err))
         .finally(() => {
           btn.innerHTML = originalText;
           btn.disabled = false;
