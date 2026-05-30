@@ -1384,7 +1384,7 @@ function build() {
             <div class="info-item">
               <div class="icon">&#9729;</div>
               <div class="label">部署平台</div>
-              <div class="value">EdgeOne Pages</div>
+              <div class="value">ESA Pages</div>
             </div>
           </div>
 
@@ -1462,7 +1462,7 @@ function build() {
         </div>
         <div class="card-body">
           <div class="docs-intro">
-            <p>OnePic API 是一个轻量级的随机图片服务，基于 EdgeOne Pages 边缘函数实现。支持 WebP 图片格式，自动适配不同设备类型，为 Web 应用提供高性能、低延迟的图片分发能力。</p>
+            <p>OnePic API 是一个轻量级的随机图片服务，基于边缘函数实现。支持 WebP 图片格式，自动适配不同设备类型，为 Web 应用提供高性能、低延迟的图片分发能力。</p>
           </div>
 
           <div class="doc-section-title">
