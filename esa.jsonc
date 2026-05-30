@@ -1,0 +1,10 @@
+{
+  "name": "onepic-api",
+  "entry": "./dist/er/index.js",
+  "installCommand": "npm install",
+  "buildCommand": "node build.js",
+  "assets": {
+    "directory": "./dist",
+    "notFoundStrategy": "404Page"
+  }
+}

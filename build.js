@@ -161,6 +161,15 @@ export default function onRequest(context) {
 `;
 }
 
+// 生成ESA平台边缘函数（统一入口）
+function generateEsaFunction(imageFileList) {
+  const templatePath = path.join(process.cwd(), 'edge-functions', 'esa', 'index.js');
+  let template = fs.readFileSync(templatePath, 'utf-8');
+  const imageListJson = JSON.stringify(imageFileList);
+  template = template.replace('__IMAGE_LIST_PLACEHOLDER__', imageListJson);
+  return template;
+}
+
 // 构建函数
 function build() {
   cleanDist();
@@ -245,6 +254,18 @@ function build() {
     console.log('Generated Image edge function');
   } catch (error) {
     console.error('Error generating Image edge function:', error);
+  }
+  
+  // 生成ESA平台边缘函数（统一入口）
+  try {
+    const esaFunctionDir = path.join(process.cwd(), 'dist', 'er');
+    fs.mkdirSync(esaFunctionDir, { recursive: true });
+    const esaFunctionPath = path.join(esaFunctionDir, 'index.js');
+    const esaFunctionContent = generateEsaFunction(imageFileList);
+    fs.writeFileSync(esaFunctionPath, esaFunctionContent);
+    console.log('Generated ESA edge function');
+  } catch (error) {
+    console.error('Error generating ESA edge function:', error);
   }
   
   // 创建package.json文件
