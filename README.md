@@ -1,6 +1,6 @@
 # OnePic API
 
-基于边缘计算的随机图片API服务，部署在EdgeOne Pages平台。
+基于边缘计算的随机图片API服务，支持多平台部署。
 
 项目链接：<https://pic.api.sylv.top>
 
@@ -8,7 +8,14 @@
 
 ## 项目简介
 
-OnePic API 是一个轻量级的随机图片服务，利用EdgeOne Pages的边缘函数实现，支持WebP图片格式，自动适配PC端和移动端设备。
+OnePic API 是一个轻量级的随机图片服务，利用边缘计算技术实现，支持WebP图片格式，自动适配PC端和移动端设备。
+
+项目提供两个分支，分别适配不同的边缘计算平台：
+
+| 分支 | 适配平台 | 说明 |
+| --- | --- | --- |
+| `main` | 腾讯云 EdgeOne Pages | 默认分支，使用 EdgeOne Pages 边缘函数 |
+| `aliyun-esa` | 阿里云 ESA | 使用阿里云边缘安全加速平台 |
 
 ## 项目特性
 
@@ -21,12 +28,15 @@ OnePic API 是一个轻量级的随机图片服务，利用EdgeOne Pages的边�
 
 ### 技术优势
 
-- **边缘计算**: 基于EdgeOne Pages边缘函数，全球节点就近响应
+- **边缘计算**: 基于边缘函数，全球节点就近响应
 - **零延迟缓存**: 图片列表构建时嵌入，运行时零额外请求
 - **轻量架构**: 无需后端服务器，纯静态资源+边缘函数
 - **简单部署**: 推送到Git仓库即可自动构建部署
+- **多平台支持**: 同时支持腾讯云 EdgeOne Pages 和阿里云 ESA 平台
 
 ## 项目结构
+
+### EdgeOne Pages 分支 (main)
 
 ```
 onepic-api/
@@ -35,7 +45,6 @@ onepic-api/
 ├── edgeone.json                # EdgeOne Pages配置
 ├── convert_images_fixed.bat    # 图片转换脚本(Windows)
 ├── README.md                   # 项目文档
-├── DEPLOY.md                   # 部署文档
 ├── .gitignore                  # Git忽略配置
 ├── images/                     # 原始图片目录
 │   ├── pc/                     # PC端原始图片
@@ -46,6 +55,26 @@ onepic-api/
 └── edge-functions/             # 边缘函数目录
     ├── api/index.js            # /api 接口处理
     └── image/index.js          # /image 接口处理
+```
+
+### 阿里云 ESA 分支 (aliyun-esa)
+
+```
+onepic-api/
+├── build.js                    # 构建脚本
+├── package.json                # 项目配置
+├── esa.jsonc                   # 阿里云 ESA 配置
+├── convert_images_fixed.bat    # 图片转换脚本(Windows)
+├── README.md                   # 项目文档
+├── .gitignore                  # Git忽略配置
+├── images/                     # 原始图片目录
+│   ├── pc/                     # PC端原始图片
+│   └── pe/                     # 移动端原始图片
+├── converted/                  # 转换后图片目录
+│   ├── pc/webp/                # PC端WebP图片
+│   └── pe/webp/                # 移动端WebP图片
+└── edge-functions/             # 边缘函数目录
+    └── esa/index.js            # ESA 统一入口函数
 ```
 
 ## 快速开始
@@ -72,15 +101,28 @@ convert_images_fixed.bat
 magick input.jpg -quality 85 output.webp
 ```
 
-### 3. 部署到EdgeOne Pages
+### 3. 选择平台并部署
 
-1. 推送代码到Git仓库
-2. 在EdgeOne Pages创建站点并关联仓库
-3. 设置构建配置：
+#### 方式一：部署到 EdgeOne Pages (使用 main 分支)
+
+1. 切换到 main 分支：`git checkout main`
+2. 推送代码到Git仓库
+3. 在EdgeOne Pages创建站点并关联仓库
+4. 设置构建配置：
    - 构建命令：`npm run build`
    - 输出目录：`dist`
-   - Node版本：`18.20.4`
-4. 触发构建，等待部署完成
+   - Node版本：`20.18.0`
+5. 触发构建，等待部署完成
+
+#### 方式二：部署到阿里云 ESA (使用 aliyun-esa 分支)
+
+1. 切换到 aliyun-esa 分支：`git checkout aliyun-esa`
+2. 推送代码到Git仓库
+3. 在阿里云 ESA 创建应用并关联仓库
+4. 设置构建配置：
+   - 构建命令：`node build.js`
+   - 输出目录：`dist`
+5. 触发构建，等待部署完成
 
 ## API 文档
 
@@ -197,14 +239,32 @@ npm run build
 
 ## 技术栈
 
-- **运行时**: EdgeOne Pages 边缘函数
+- **运行时**: 边缘函数 (EdgeOne Pages / 阿里云 ESA)
 - **构建工具**: Node.js
 - **图片格式**: WebP
-- **部署平台**: 腾讯云 EdgeOne Pages
+- **部署平台**: 
+  - 腾讯云 EdgeOne Pages (main 分支)
+  - 阿里云 ESA (aliyun-esa 分支)
+
+## 平台差异说明
+
+### EdgeOne Pages (main 分支)
+
+- 使用 EdgeOne Pages 原生边缘函数格式
+- 函数入口分布在 `edge-functions/api/index.js` 和 `edge-functions/image/index.js`
+- 配置文件为 `edgeone.json`
+- 支持自动 CORS 头部配置和缓存策略
+
+### 阿里云 ESA (aliyun-esa 分支)
+
+- 使用阿里云 ESA 边缘函数统一入口格式
+- 函数入口为 `edge-functions/esa/index.js`
+- 配置文件为 `esa.jsonc`
+- 构建时生成 `dist/er/index.js` 作为函数入口
 
 ## 环境要求
 
-- Node.js 18.x 或更高版本
+- Node.js 20.x 或更高版本
 - ImageMagick（用于图片转换，可选）
 - Git仓库（用于部署）
 
