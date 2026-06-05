@@ -5,7 +5,7 @@
   "nodeVersion": "20.18.0",
   "headers": [
     {
-      "source": "/*",
+      "source": ["/*", "/api/*"],
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
