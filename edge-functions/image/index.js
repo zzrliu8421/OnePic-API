@@ -14,10 +14,26 @@ function detectImageFormat(acceptHeader) {
   return 'webp';
 }
 
+// CORS 头部
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 // 主处理函数
 export default function onRequest(context) {
   const request = context.request;
   const url = new URL(request.url);
+
+  // 处理 OPTIONS 预检请求
+  if (request.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204,
+      headers: CORS_HEADERS,
+    });
+  }
+
   const userAgent = request.headers.get('User-Agent') || '';
   const acceptHeader = request.headers.get('Accept') || '';
   
@@ -26,7 +42,7 @@ export default function onRequest(context) {
   
   const files = IMAGE_LIST[type]?.[format];
   if (!files || files.length === 0) {
-    return new Response('No images found', { status: 404 });
+    return new Response('No images found', { status: 404, headers: CORS_HEADERS });
   }
   
   const randomImage = files[Math.floor(Math.random() * files.length)];
@@ -34,6 +50,6 @@ export default function onRequest(context) {
   
   return new Response(null, {
     status: 302,
-    headers: { 'Location': imageUrl }
+    headers: { 'Location': imageUrl, ...CORS_HEADERS }
   });
 }
