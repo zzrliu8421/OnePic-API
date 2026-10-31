@@ -294,7 +294,7 @@ function build() {
   <title>OnePic API — 随机图片，边缘显影</title>
   <meta name="description" content="OnePic API —— 一台架在全球边缘节点上的随机图片机。一次请求，随机显影：WebP 直出、PC 与移动双胶卷适配、零配置接入。">
   <meta name="theme-color" content="#f2ede3">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d2401e' stroke-width='2' stroke-linecap='round'><circle cx='12' cy='12' r='10'/><path d='m14.31 8 5.74 9.94'/><path d='M9.69 8h11.48'/><path d='m7.38 12 5.74-9.94'/><path d='M9.69 16 3.95 6.06'/><path d='M14.31 16H2.83'/><path d='m16.62 12-5.74 9.94'/></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d2401e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='3' width='16' height='18' rx='2.5'/><path d='M7.5 6.5h9V14h-9z'/><circle cx='10' cy='9' r='1' fill='%23d2401e' stroke='none'/><path d='M8 14l2.5-3.5 2 2 2-2.5 2 4'/><path d='M8.5 17.5h7'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
@@ -469,8 +469,8 @@ function build() {
     }
 
     .photo-empty { color: #8a7d63; text-align: center; padding: 20px; }
-    .photo-empty svg { width: 46px; height: 46px; margin: 0 auto 14px; color: #4d4433; animation: spin 26s linear infinite; display: block; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .photo-empty svg { width: 46px; height: 46px; margin: 0 auto 14px; color: #4d4433; animation: sway 5s ease-in-out infinite; display: block; }
+    @keyframes sway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
     .photo-empty p { font-family: var(--font-mono); font-size: 11px; letter-spacing: .32em; }
     .photo-empty i { display: block; font-style: normal; font-size: 10px; letter-spacing: .2em; color: #5d5442; margin-top: 7px; }
 
@@ -711,7 +711,7 @@ function build() {
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="logo" href="#" onclick="showPage('home', document.querySelectorAll('.nav a')[0]); return false;" aria-label="OnePic 首页">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m14.31 8 5.74 9.94"/><path d="M9.69 8h11.48"/><path d="m7.38 12 5.74-9.94"/><path d="M9.69 16 3.95 6.06"/><path d="M14.31 16H2.83"/><path d="m16.62 12-5.74 9.94"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M7.5 6.5h9V14h-9z"/><circle cx="10" cy="9" r="1" fill="currentColor" stroke="none"/><path d="M8 14l2.5-3.5 2 2 2-2.5 2 4"/><path d="M8.5 17.5h7"/></svg>
         <span class="logo-name">OnePic<em>RANDOM IMAGE ARCHIVE</em></span>
       </a>
       <nav class="nav" aria-label="主导航">
@@ -768,7 +768,7 @@ function build() {
             <span class="tape tape-r" aria-hidden="true"></span>
             <div class="photo-area">
               <div class="photo-empty" id="photoPlaceholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m14.31 8 5.74 9.94"/><path d="M9.69 8h11.48"/><path d="m7.38 12 5.74-9.94"/><path d="M9.69 16 3.95 6.06"/><path d="M14.31 16H2.83"/><path d="m16.62 12-5.74 9.94"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M7.5 6.5h9V14h-9z"/><circle cx="10" cy="9" r="1" fill="currentColor" stroke="none"/><path d="M8 14l2.5-3.5 2 2 2-2.5 2 4"/><path d="M8.5 17.5h7"/></svg>
                 <p>WAITING FOR EXPOSURE</p>
                 <i>等待曝光 · 按下快门随机显影一张</i>
               </div>
@@ -1092,7 +1092,7 @@ background-image: url('https://your-domain.com/image');</pre>
   <footer class="footer">
     <div class="container footer-inner">
       <div class="fbrand">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m14.31 8 5.74 9.94"/><path d="M9.69 8h11.48"/><path d="m7.38 12 5.74-9.94"/><path d="M9.69 16 3.95 6.06"/><path d="M14.31 16H2.83"/><path d="m16.62 12-5.74 9.94"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M7.5 6.5h9V14h-9z"/><circle cx="10" cy="9" r="1" fill="currentColor" stroke="none"/><path d="M8 14l2.5-3.5 2 2 2-2.5 2 4"/><path d="M8.5 17.5h7"/></svg>
         OnePic<em>— 随机图片 · 边缘显影</em>
       </div>
       <div class="fnote">SHUTTER RELEASED × <b class="shutter-out">0000</b> — 本页快门记录</div>
