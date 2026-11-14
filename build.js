@@ -394,9 +394,9 @@ function build() {
     .hero { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; padding: 72px 0 88px; }
 
     .hero-ghost {
-      position: absolute; top: 30px; right: -50px; z-index: 0;
+      position: absolute; top: 30px; left: 50%; transform: translateX(-50%); z-index: 0;
       font-family: var(--font-latin); font-style: italic; font-weight: 900;
-      font-size: clamp(120px, 17vw, 220px); line-height: 1;
+      font-size: clamp(120px, 17vw, 220px); line-height: 1; white-space: nowrap;
       color: transparent; -webkit-text-stroke: 1.5px rgba(27, 23, 18, .09);
       pointer-events: none; user-select: none;
     }
