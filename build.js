@@ -391,7 +391,7 @@ function build() {
     .api-link:hover { background: var(--red); color: var(--cream); }
 
     /* ===== Hero ===== */
-    .hero { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; padding: 72px 0 88px; }
+    .hero { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; padding: 72px 0 88px; }
 
     .hero-ghost {
       position: absolute; top: 30px; right: -50px; z-index: 0;
@@ -439,7 +439,7 @@ function build() {
     .fact .l { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); margin-top: 5px; }
 
     /* ===== 拍立得机器 ===== */
-    .hero-machine { position: relative; z-index: 1; justify-self: center; width: min(430px, 100%); }
+    .hero-machine { position: relative; z-index: 1; justify-self: center; width: min(520px, 100%); }
 
     .polaroid {
       position: relative; background: #fbf7ee;
