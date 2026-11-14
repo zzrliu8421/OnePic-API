@@ -291,8 +291,8 @@ function build() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OnePic API — 随机图片，边缘显影</title>
-  <meta name="description" content="OnePic API —— 一台架在全球边缘节点上的随机图片机。一次请求，随机显影：WebP 直出、PC 与移动双胶卷适配、零配置接入。">
+  <title>OnePic API — 边缘随机图片服务</title>
+  <meta name="description" content="OnePic API —— 基于边缘计算的随机图片服务：一次 GET 请求返回一张随机图片，WebP 格式，自动适配 PC 与移动端，无需注册与密钥。">
   <meta name="theme-color" content="#f2ede3">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d2401e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='4' y='3' width='16' height='18' rx='2.5'/><path d='M7.5 6.5h9V14h-9z'/><circle cx='10' cy='9' r='1' fill='%23d2401e' stroke='none'/><path d='M8 14l2.5-3.5 2 2 2-2.5 2 4'/><path d='M8.5 17.5h7'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -712,7 +712,7 @@ function build() {
     <div class="container topbar-inner">
       <a class="logo" href="#" onclick="showPage('home', document.querySelectorAll('.nav a')[0]); return false;" aria-label="OnePic 首页">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M7.5 6.5h9V14h-9z"/><circle cx="10" cy="9" r="1" fill="currentColor" stroke="none"/><path d="M8 14l2.5-3.5 2 2 2-2.5 2 4"/><path d="M8.5 17.5h7"/></svg>
-        <span class="logo-name">OnePic<em>RANDOM IMAGE ARCHIVE</em></span>
+        <span class="logo-name">OnePic<em>EDGE IMAGE SERVICE</em></span>
       </a>
       <nav class="nav" aria-label="主导航">
         <a href="#" class="active" onclick="showPage('home', this); return false;">首页</a>
@@ -734,8 +734,8 @@ function build() {
 
         <div class="hero-copy">
           <p class="kicker">EDGE RANDOM IMAGE SERVICE — EST. 2026</p>
-          <h1>每一次快门，<br>都是一张<em>没见过</em>的照片。</h1>
-          <p class="lede">OnePic 是一台架在全球边缘节点上的随机图片机。一次请求，随机显影：WebP 直出、PC 与移动双胶卷适配、零配置接入。</p>
+          <h1>每一次请求，<br>都是一张<em>没见过的</em>图片。</h1>
+          <p class="lede">OnePic API 基于边缘计算：一次 GET 请求，随机返回一张图片。全池预转 WebP，自动识别 PC 与移动端，无需注册与密钥。</p>
           <div class="hero-links">
             <a href="#" class="btn-line" onclick="showPage('gallery', document.querySelectorAll('.nav a')[1]); return false;">浏览图库</a>
             <a href="#" class="btn-line red" onclick="showPage('docs', document.querySelectorAll('.nav a')[2]); return false;">接口文档 →</a>
@@ -745,11 +745,11 @@ function build() {
           <div class="facts">
             <div class="fact">
               <div class="v" data-count="${imageFileList.pc.webp.length}">${imageFileList.pc.webp.length}</div>
-              <div class="l">PC 图池 · ROLL A</div>
+              <div class="l">PC 图池 · DESKTOP</div>
             </div>
             <div class="fact">
               <div class="v" data-count="${imageFileList.pe.webp.length}">${imageFileList.pe.webp.length}</div>
-              <div class="l">移动图池 · ROLL B</div>
+              <div class="l">移动图池 · MOBILE</div>
             </div>
             <div class="fact">
               <div class="v">WebP</div>
@@ -769,15 +769,15 @@ function build() {
             <div class="photo-area">
               <div class="photo-empty" id="photoPlaceholder">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M7.5 6.5h9V14h-9z"/><circle cx="10" cy="9" r="1" fill="currentColor" stroke="none"/><path d="M8 14l2.5-3.5 2 2 2-2.5 2 4"/><path d="M8.5 17.5h7"/></svg>
-                <p>WAITING FOR EXPOSURE</p>
-                <i>等待曝光 · 按下快门随机显影一张</i>
+                <p>WAITING FOR REQUEST</p>
+                <i>等待请求 · 点击按钮随机获取一张</i>
               </div>
-              <img id="previewImage" alt="随机显影的图片" style="display:none;">
+              <img id="previewImage" alt="随机返回的图片" style="display:none;">
             </div>
             <div class="photo-caption">
               <span class="serial" id="photoSerial">NO.0000</span>
               <span class="stamp" id="photoStamp">--.--.--</span>
-              <span class="meta" id="previewMeta">尚未曝光</span>
+              <span class="meta" id="previewMeta">尚未请求</span>
             </div>
           </div>
 
@@ -788,8 +788,8 @@ function build() {
               </span>
             </button>
             <div class="machine-copy">
-              <div class="machine-hint">按 下 快 门 · 随 机 显 影</div>
-              <div class="machine-counter">本机已按快门 <b class="shutter-out">0000</b> 次</div>
+              <div class="machine-hint">点 击 抽 取 · 随 机 返 回</div>
+              <div class="machine-counter">本页已请求 <b class="shutter-out">0000</b> 次</div>
             </div>
           </div>
         </div>
@@ -799,7 +799,7 @@ function build() {
       <section class="filmstrip" id="filmstrip" aria-label="图池现场预览">
         <div class="container film-head">
           <span class="live">LIVE FROM THE POOL — 图池现场</span>
-          <span id="filmCount">LOADING FILM…</span>
+          <span id="filmCount">LOADING POOL…</span>
         </div>
         <div class="film-row">
           <div class="film-track" id="filmTrackA"></div>
@@ -813,29 +813,29 @@ function build() {
       <section class="section container">
         <div class="section-head reveal">
           <p class="kicker">— 01 / CAPABILITIES</p>
-          <h2>一卷胶片的自我修养</h2>
+          <h2>为速度而生</h2>
           <p>把随机图片这件小事做到极致：更快的节点、更小的体积、更少的配置。</p>
         </div>
         <div class="plates reveal">
           <div class="plate" data-plt="PLT.01">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <h3>边缘显影</h3>
+            <h3>边缘计算</h3>
             <p>请求打到最近的边缘节点，随机挑选与分发在函数内完成，运行时零额外请求。</p>
           </div>
           <div class="plate" data-plt="PLT.02">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg>
-            <h3>双胶卷适配</h3>
-            <p>自动识别 PC 与移动设备，分别从对应图池取片，横竖屏各得其所。</p>
+            <h3>设备适配</h3>
+            <p>自动识别 PC 与移动设备，分别从对应图池取图，横竖屏各自适配。</p>
           </div>
           <div class="plate" data-plt="PLT.03">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 15-4.2-4.2a1.5 1.5 0 0 0-2.1 0L7 18"/></svg>
-            <h3>WebP 直出</h3>
+            <h3>WebP 优化</h3>
             <p>全池预转 WebP，体积更小、画质更高，首屏加载更快一步。</p>
           </div>
           <div class="plate" data-plt="PLT.04">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8.5" cy="8.5" r="1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1" fill="currentColor" stroke="none"/></svg>
-            <h3>随机算法</h3>
-            <p>每次请求独立抽取，支持 count=1–50 批量补货，重定向与纯文本任选。</p>
+            <h3>随机分发</h3>
+            <p>每次请求独立抽取，支持 count=1–50 批量获取，重定向与纯文本任选。</p>
           </div>
           <div class="plate" data-plt="PLT.05">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13.5 9 5 9-5"/></svg>
@@ -854,24 +854,24 @@ function build() {
       <section class="section container">
         <div class="section-head reveal">
           <p class="kicker">— 02 / HOW IT WORKS</p>
-          <h2>三次曝光，完成接入</h2>
+          <h2>三步开始使用</h2>
           <p>无需注册、无需密钥，一个 GET 请求即可开始。</p>
         </div>
         <div class="process reveal">
           <div class="step">
             <div class="num">1.</div>
-            <h3>按下快门</h3>
+            <h3>调用接口</h3>
             <p>向 /api 或 /image 发起一次 GET 请求，无需携带任何参数。</p>
           </div>
           <div class="step">
             <div class="num">2.</div>
-            <h3>边缘抽片</h3>
-            <p>就近边缘节点从图池随机抽片，JSON、302 重定向或纯文本任你选择。</p>
+            <h3>边缘响应</h3>
+            <p>就近边缘节点从图池随机取图，JSON、302 重定向或纯文本任你选择。</p>
           </div>
           <div class="step">
             <div class="num">3.</div>
-            <h3>上墙展出</h3>
-            <p>把返回的 URL 贴进 img 标签、CSS 背景或任意客户端，即刻展出。</p>
+            <h3>集成使用</h3>
+            <p>把返回的 URL 贴进 img 标签、CSS 背景或任意客户端，即可直接使用。</p>
           </div>
         </div>
       </section>
@@ -881,16 +881,16 @@ function build() {
     <div id="gallery-page" class="page">
       <section class="section container">
         <div class="section-head reveal">
-          <p class="kicker">— 03 / CONTACT SHEET</p>
-          <h2>印样集</h2>
-          <p>全部图池在此展出，支持 PC 与 PE 双胶卷切换，点击任意一张查看大图。</p>
+          <p class="kicker">— 03 / GALLERY</p>
+          <h2>图库</h2>
+          <p>全部图池在此展示，支持 PC 与移动端切换，点击任意一张查看大图。</p>
         </div>
 
         <div class="sheet reveal">
           <div class="sheet-bar">
-            <div class="roll-tabs" role="tablist" aria-label="胶卷切换">
-              <button class="roll active" onclick="switchDevice('pc', this)">PC 胶卷<span class="rc">${imageFileList.pc.webp.length}</span></button>
-              <button class="roll" onclick="switchDevice('pe', this)">PE 胶卷<span class="rc">${imageFileList.pe.webp.length}</span></button>
+            <div class="roll-tabs" role="tablist" aria-label="设备切换">
+              <button class="roll active" onclick="switchDevice('pc', this)">PC 端<span class="rc">${imageFileList.pc.webp.length}</span></button>
+              <button class="roll" onclick="switchDevice('pe', this)">移动端<span class="rc">${imageFileList.pe.webp.length}</span></button>
             </div>
             <span class="sheet-meta" id="sheetCount">LOADING…</span>
           </div>
@@ -909,7 +909,7 @@ function build() {
       <section class="section container">
         <div class="section-head reveal">
           <p class="kicker">— 04 / DOCUMENTATION</p>
-          <h2>接口档案</h2>
+          <h2>API 文档</h2>
           <p>完整的接口使用指南与参考，快速集成随机图片服务。</p>
         </div>
 
@@ -1093,9 +1093,9 @@ background-image: url('https://your-domain.com/image');</pre>
     <div class="container footer-inner">
       <div class="fbrand">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M7.5 6.5h9V14h-9z"/><circle cx="10" cy="9" r="1" fill="currentColor" stroke="none"/><path d="M8 14l2.5-3.5 2 2 2-2.5 2 4"/><path d="M8.5 17.5h7"/></svg>
-        OnePic<em>— 随机图片 · 边缘显影</em>
+        OnePic<em>— 随机图片 · 边缘分发</em>
       </div>
-      <div class="fnote">SHUTTER RELEASED × <b class="shutter-out">0000</b> — 本页快门记录</div>
+      <div class="fnote">REQUESTS SERVED × <b class="shutter-out">0000</b> — 本页请求记录</div>
       <div class="legal">
         <span>&copy; 2026 <a href="https://www.sylv.top" target="_blank" rel="noopener">Sylvy</a>. All rights reserved.</span>
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">豫ICP备2026013756号-1</a>
@@ -1164,14 +1164,14 @@ background-image: url('https://your-domain.com/image');</pre>
             serial.textContent = 'NO.' + pad4(shutterCount);
             stamp.textContent = pad2(d.getFullYear() % 100) + '.' + pad2(d.getMonth() + 1) + '.' + pad2(d.getDate());
 
-            var rollName = data.type === 'pc' ? 'PC 胶卷' : 'PE 胶卷';
+            var rollName = data.type === 'pc' ? 'PC 端' : '移动端';
             meta.textContent = data.format.toUpperCase() + ' · ' + rollName;
             img.onload = function () {
               meta.textContent = data.format.toUpperCase() + ' · ' + rollName + ' · ' + img.naturalWidth + '×' + img.naturalHeight;
               img.classList.add('shown');
             };
             img.onerror = function () {
-              meta.textContent = '显影失败，请再按一次';
+              meta.textContent = '加载失败，请重试';
             };
 
             img.classList.remove('shown');
@@ -1255,7 +1255,7 @@ background-image: url('https://your-domain.com/image');</pre>
       info.textContent = pad2(state.page) + ' / ' + pad2(totalPages);
       document.getElementById('prevBtn').disabled = state.page <= 1;
       document.getElementById('nextBtn').disabled = state.page >= totalPages;
-      document.getElementById('sheetCount').textContent = '共 ' + total + ' 帧 · ' + state.type.toUpperCase() + ' ROLL';
+      document.getElementById('sheetCount').textContent = '共 ' + total + ' 张 · ' + state.type.toUpperCase();
     }
 
     function prevPage() {
@@ -1281,7 +1281,7 @@ background-image: url('https://your-domain.com/image');</pre>
       var pc = (state.imageData.pc && state.imageData.pc.webp) ? state.imageData.pc.webp : [];
       var pe = (state.imageData.pe && state.imageData.pe.webp) ? state.imageData.pe.webp : [];
       var cnt = document.getElementById('filmCount');
-      if (cnt) cnt.textContent = 'TOTAL ' + pad4(pc.length + pe.length) + ' FRAMES';
+      if (cnt) cnt.textContent = 'TOTAL ' + pad4(pc.length + pe.length) + ' IMAGES';
       fillTrack('filmTrackA', 'pc', pc.slice(0, 14));
       fillTrack('filmTrackB', 'pe', pe.slice(0, 14));
     }
