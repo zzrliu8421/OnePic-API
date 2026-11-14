@@ -29,6 +29,8 @@ if not exist "converted\pc" mkdir "converted\pc"
 if not exist "converted\pe" mkdir "converted\pe"
 if not exist "converted\pc\webp" mkdir "converted\pc\webp"
 if not exist "converted\pe\webp" mkdir "converted\pe\webp"
+if not exist "converted\pc\thumb" mkdir "converted\pc\thumb"
+if not exist "converted\pe\thumb" mkdir "converted\pe\thumb"
 
 set /a total_converted=0
 set /a total_errors=0
@@ -44,6 +46,8 @@ if exist "images\pc" (
             magick "%%f" -quality 85 "converted\pc\webp\%%~nf.webp" >nul 2>&1
             if !errorlevel! equ 0 (
                 echo     WebP completed
+                REM Generate homepage thumbnail (320x213)
+                magick "%%f" -thumbnail "320x213^" -gravity center -extent 320x213 -quality 72 -strip "converted\pc\thumb\%%~nf.webp" >nul 2>&1
                 set /a total_converted+=1
             ) else (
                 echo     WebP failed
@@ -68,6 +72,8 @@ if exist "images\pe" (
             magick "%%f" -quality 85 "converted\pe\webp\%%~nf.webp" >nul 2>&1
             if !errorlevel! equ 0 (
                 echo     WebP completed
+                REM Generate homepage thumbnail (320x213)
+                magick "%%f" -thumbnail "320x213^" -gravity center -extent 320x213 -quality 72 -strip "converted\pe\thumb\%%~nf.webp" >nul 2>&1
                 set /a total_converted+=1
             ) else (
                 echo     WebP failed

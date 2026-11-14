@@ -1282,8 +1282,8 @@ background-image: url('https://your-domain.com/image');</pre>
       var pe = (state.imageData.pe && state.imageData.pe.webp) ? state.imageData.pe.webp : [];
       var cnt = document.getElementById('filmCount');
       if (cnt) cnt.textContent = 'TOTAL ' + pad4(pc.length + pe.length) + ' IMAGES';
-      fillTrack('filmTrackA', 'pc', pc.slice(0, 14));
-      fillTrack('filmTrackB', 'pe', pe.slice(0, 14));
+      fillTrack('filmTrackA', 'pc', pc.slice(0, 12));
+      fillTrack('filmTrackB', 'pe', pe.slice(0, 12));
     }
 
     function fillTrack(id, type, arr) {
@@ -1293,7 +1293,8 @@ background-image: url('https://your-domain.com/image');</pre>
       for (var c = 0; c < 3; c++) {
         arr.forEach(function (name, i) {
           html += '<button class="film-frame" onclick="openModalAt(\\'' + type + '\\',' + i + ')" aria-label="查看图片">'
-            + '<img src="/converted/' + type + '/webp/' + name + '.webp" loading="lazy" alt="">'
+            + '<img src="/converted/' + type + '/thumb/' + name + '.webp" width="320" height="213" loading="lazy" decoding="async" fetchpriority="low" alt=""'
+            + ' onerror="this.onerror=null;this.src=\\'/converted/' + type + '/webp/' + name + '.webp\\'">'
             + '<b>' + type.toUpperCase() + '</b><i>' + pad4(i + 1) + '</i>'
             + '</button>';
         });
