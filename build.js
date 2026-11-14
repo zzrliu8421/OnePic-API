@@ -1168,6 +1168,7 @@ background-image: url('https://your-domain.com/image');</pre>
             meta.textContent = data.format.toUpperCase() + ' · ' + rollName;
             img.onload = function () {
               meta.textContent = data.format.toUpperCase() + ' · ' + rollName + ' · ' + img.naturalWidth + '×' + img.naturalHeight;
+              img.classList.add('shown');
             };
             img.onerror = function () {
               meta.textContent = '显影失败，请再按一次';
